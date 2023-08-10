@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>T-Shirt Order Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        form {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        img {
+            display: block;
+            margin: auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        p#total {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function changeImage() {
+            const tshirtImage = document.getElementById("tshirtImage");
+            const tshirtSelect = document.getElementById("tshirt");
+            const tshirtValue = tshirtSelect.options[tshirtSelect.selectedIndex].value;
+            
+            // Update image source based on selected value
+            if (tshirtValue === "200") {
+                tshirtImage.src = "https://raw.githubusercontent.com/voleti-surya/marttask/master/green.png"; // Replace with actual image URL
+            } else if (tshirtValue === "250") {
+                tshirtImage.src = "https://raw.githubusercontent.com/voleti-surya/marttask/master/grey.png"; // Replace with actual image URL
+            } else if (tshirtValue === "500") {
+                tshirtImage.src = "https://raw.githubusercontent.com/voleti-surya/marttask/master/white.png"; // Replace with actual image URL
+            }
+        }
+
+        function calculateTotal() {
+    const tshirtSelect = document.getElementById("tshirt");
+    const tshirtValue = parseInt(tshirtSelect.options[tshirtSelect.selectedIndex].value);
+    const quantity = parseInt(document.getElementById("quantity").value);
+    const total = tshirtValue * quantity;
+
+    document.getElementById("totalAmount").textContent = `Total Amount: Rs. ${total.toFixed(2)}`;
+}
+        
+        function processPayment() {
+    const totalAmount = parseFloat(document.getElementById("totalAmount").textContent.replace("Total Amount: Rs. ", ""));
+    
+    // Simulate payment processing
+    setTimeout(() => {
+        alert(`Payment successful! Amount paid: Rs. ${totalAmount.toFixed(2)}`);
+    }, 2000);
+}
+
+    </script>
+</head>
+<body>
+    <h1>T-Shirt Order Form</h1>
+    <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="roll">Roll Number:</label>
+        <input type="text" id="roll" required>
+        <br>
+        <label for="email">Email ID:</label>
+        <input type="email" id="email" required>
+        <br>
+        <label for="tshirt">Select T-Shirt:</label>
+        <select id="tshirt" onchange="changeImage(); calculateTotal();">
+            <option value="200">T-Shirt (Rs. 200)</option>
+            <option value="250">Premium T-Shirt (Rs. 250)</option>
+            <option value="500">Designer T-Shirt (Rs. 500)</option>
+        </select>
+        <br>
+        <img id="tshirtImage" src="" alt="T-Shirt Image">
+        <br>
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" value="1" onchange="calculateTotal()">
+        <br>
+        <p id="totalAmount">Total Amount: Rs. 0.00</p>
+        <button type="button" id="payNowButton" onclick="processPayment()">Pay Now</button>
+    </form>
+</body>
+</html>
